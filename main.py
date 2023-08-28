@@ -20,6 +20,7 @@ parser.add_argument("--gpus", type=int, default=-1)
 parser.add_argument("--num_workers", type=int, default=-1)
 
 # Traing settings
+parser.add_argument("--test", type=bool, default=False)
 parser.add_argument("--epochs", type=int, default=1000)
 parser.add_argument("--batch_size", type=int, default=5)
 parser.add_argument("--lr", type=float, default=1e-3)
@@ -29,7 +30,7 @@ parser.add_argument("--force_weight", type=float, default=1000)
 # Model settings
 parser.add_argument("--model", type=str, default="MPNN")
 parser.add_argument("--num_types", type=int, default=10)
-parser.add_argument("--num_basis", type=int, default=30)
+parser.add_argument("--num_basis", type=int, default=12)
 parser.add_argument("--depth", type=int, default=1)
 parser.add_argument("--dim", type=int, default=64)
 parser.add_argument("--message_depth", type=int, default=1)
@@ -164,7 +165,9 @@ if __name__ == "__main__":
         logger=logger,
         max_epochs=args.epochs,
         deterministic=deterministic,
+        inference_mode=not (args.dataset == "MD17"),
     )
 
     trainer.fit(model, dataloaders[0], dataloaders[1])
-    # trainer.test(ckpt_path="best", dataloaders=dataloaders[2])
+    if args.test:
+        trainer.test(ckpt_path="best", dataloaders=dataloaders[2])

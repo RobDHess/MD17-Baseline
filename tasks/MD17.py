@@ -95,7 +95,7 @@ class Task(pl.LightningModule):
         self.log("Force test MAE", self.force_test_metric, prog_bar=True)
 
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW(
+        optimizer = torch.optim.Adam(
             self.parameters(),
             lr=self.lr,
         )

@@ -18,7 +18,7 @@ parameters:
     distribution: int_uniform
   dim:
     min: 32
-    max: 512
+    max: 256
     distribution: int_uniform
   message_depth:
     min: 1
@@ -42,11 +42,11 @@ parameters:
     values: ["add", "mean", "max"]
   cutoff:
     min: 2.0
-    max: 10.0
+    max: 8.0
     distribution: uniform
   batch_size:
     min: 4
-    max: 32
+    max: 16
     distribution: int_uniform
   lr:
     min: 1e-4
